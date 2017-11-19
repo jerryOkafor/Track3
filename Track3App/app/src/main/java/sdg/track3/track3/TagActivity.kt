@@ -4,21 +4,20 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.IntentSender
 import android.location.Location
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.CommonStatusCodes
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_tag.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 import timber.log.Timber
-import android.content.IntentSender
-import android.widget.Toast
-import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.common.api.CommonStatusCodes
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.location.*
 
 
 class TagActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
