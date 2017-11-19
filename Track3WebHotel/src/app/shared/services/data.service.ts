@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
@@ -11,12 +11,8 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class DataService {
-    private headers: HttpHeaders = new HttpHeaders();
-
-    private token = localStorage.getItem('token');
 
     constructor(private http: HttpClient) {
-        this.headers.set('Authorization', `Bearer ${this.token}`);
     }
 
     private retryCondition(errors: Observable<any>) {
@@ -26,13 +22,13 @@ export class DataService {
     }
 
     get(url): Observable<any> {
-        return this.http.get(url, {headers: new HttpHeaders().set('Authorization', `Bearer ${this.token}`)})
+        return this.http.get(url)
             .catch(this.handleError);
 
     }
 
     post(url, body): Observable<any> {
-        return this.http.post(url, body, {headers: new HttpHeaders().set('Authorization', `Bearer ${this.token}`)});
+        return this.http.post(url, body);
     }
 
     handleError(error: HttpErrorResponse) {
