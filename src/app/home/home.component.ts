@@ -1,15 +1,19 @@
-import { Component,
-         OnInit,
-         ChangeDetectionStrategy,
-         ViewChild,
-         ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ViewChild,
+  ChangeDetectorRef
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromHome from './reducer';
 import * as fromRoot from '../reducers'
 import { Observable } from 'rxjs/Observable';
-import {GoogleMapService} from '../google-map.service'
+import { GoogleMapService } from '../google-map.service'
 import 'rxjs/add/operator/last';
 import { HeatmapLayer } from '@ngui/map';
+
+declare var firebase: any;
 
 @Component({
   selector: 'app-home',
@@ -28,25 +32,25 @@ export class HomeComponent implements OnInit {
   address: any = {};
   constructor(private store: Store<fromRoot.State>, private googleMapService: GoogleMapService, private ref: ChangeDetectorRef) {
     this.showLoading$ = this.store.select(fromRoot.getShowLoading);
-   }
+  }
 
   initialized(autocomplete: any) {
     this.autocomplete = autocomplete;
   }
-   loadLocation() {
+  loadLocation() {
     // Get all comments
-      this.googleMapService.loadLocation()
-        .subscribe(
-          location => {
-            this.LocationCode$ = location;
-            console.log(this.LocationCode$)
-            console.log('here');
-          }, //Bind to view
-          err => {
-            // Log errors if any
-            console.log(err);
-        });
-      }
+    this.googleMapService.loadLocation()
+      .subscribe(
+      location => {
+        this.LocationCode$ = location;
+        console.log(this.LocationCode$)
+        console.log('here');
+      }, //Bind to view
+      err => {
+        // Log errors if any
+        console.log(err);
+      });
+  }
   ngOnInit() {
     this.loadLocation();
     this.heatmapLayer['initialized$'].subscribe(heatmap => {
@@ -68,7 +72,7 @@ export class HomeComponent implements OnInit {
   loadRandomPoints() {
     this.points = [];
 
-    for (let i = 0 ; i < 60; i++) {
+    for (let i = 0; i < 60; i++) {
       this.addPoint();
     }
   }
@@ -95,13 +99,27 @@ export class HomeComponent implements OnInit {
         console.log(points);
         for (const propertyID in points) {
           if (points.hasOwnProperty(propertyID)) {
-              const lat = points[propertyID].lat;
-              const lng = points[propertyID].lng;
+            const lat = points[propertyID].lat;
+            const lng = points[propertyID].lng;
 
-              const latlng = new google.maps.LatLng(lat, lng);
-              this.points.push(latlng);
+            const latlng = new google.maps.LatLng(lat, lng);
+            this.points.push(latlng);
           }
-      }
+        }
       });
+
+      const database = firebase.database();
+        const pointsRef = database.ref('heat-map-data/');
+        pointsRef.on('child_added', data => {
+          console.log('add real data: ');
+          console.log(data.val());
+          const lat = data.val().lat;
+          const lng = data.val().lng;
+
+          const latlng = new google.maps.LatLng(lat, lng);
+          this.points.push(latlng);
+
+          // addCommentElement(postElement, data.key, data.val().text, data.val().author);
+        });
   }
 }
