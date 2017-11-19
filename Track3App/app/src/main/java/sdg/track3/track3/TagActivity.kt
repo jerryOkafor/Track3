@@ -14,9 +14,14 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
+import com.google.android.gms.location.places.Place
+import com.google.android.gms.location.places.ui.PlacePicker
+import com.jakewharton.rxbinding2.widget.checkedChanges
 import kotlinx.android.synthetic.main.activity_tag.*
+import kotlinx.android.synthetic.main.content_tag.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
+import sdg.track3.track3.util.toggle
 import timber.log.Timber
 
 
@@ -25,10 +30,12 @@ class TagActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
     companion object {
         private const val RC_LOCATION = 101
         private const val REQUEST_CHECK_SETTINGS = 102
+        private const val REQUEST_PLACE_PICKER = 103
     }
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var lastLocation: Location? = null
+    private var selectedPlace: Place? = null
 
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(p0: LocationResult?) {
@@ -52,6 +59,17 @@ class TagActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         //get the fused location Client
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
+        checkBox.checkedChanges()
+                .skipInitialValue()
+                .subscribe { checked -> btnChoosePlace.toggle(!checked) }
+        btnChoosePlace.setOnClickListener({ openPlacePicker() })
+
+    }
+
+    private fun openPlacePicker() {
+        val builder = PlacePicker.IntentBuilder()
+//        builder.setLatLngBounds(LatLngBounds(...)); //Not set, use the devices current location
+        startActivityForResult(builder.build(this), REQUEST_PLACE_PICKER)
     }
 
     override fun onResume() {
@@ -138,9 +156,16 @@ class TagActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         }
     }
 
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
             REQUEST_CHECK_SETTINGS -> if (resultCode == Activity.RESULT_OK) startLocationUpdate()
+            REQUEST_PLACE_PICKER -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    selectedPlace = PlacePicker.getPlace(this, data)
+                    Timber.d("Selected Place: %s", selectedPlace.toString())
+                }
+            }
             else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }

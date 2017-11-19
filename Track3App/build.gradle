@@ -26,3 +26,7 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext.rxkotlin_version= '2.1.0'
+ext.rxandroid_version = '2.0.1'
+ext.rxbingin_version = '2.0.0'

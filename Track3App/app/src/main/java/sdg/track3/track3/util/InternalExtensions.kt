@@ -25,3 +25,7 @@ fun View.enable() {
 fun View.disAble() {
     this.isEnabled = false
 }
+
+fun View.toggle(show: Boolean) {
+    if (show) this.show() else this.hide()
+}
