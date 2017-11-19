@@ -1,0 +1,12 @@
+<div id="wrapper" class=""> 
+  <app-header></app-header>
+  <div id="content">
+    <button (click)='toggleHeatmap()'>show heatmap</button>
+    <button (click)='loadRandomPoints()'>Load Random Points</button>
+    <ngui-map zoom="13" center="6.601838, 3.3514863">
+
+      <heatmap-layer [data]="points"></heatmap-layer>
+    </ngui-map>
+  </div>
+  <app-footer></app-footer>
+</div>

@@ -1,0 +1,168 @@
+html,
+body {
+    margin:0;
+    padding:0;
+    height:100%;
+}
+#wrapper {
+    min-height:100%;
+    position:relative;
+}
+#header {
+    background:#ededed;
+    margin-bottom: -2% !important;
+    border-radius: 0px;
+    /* display:inline !important; */
+}
+#shift-down{
+    /* position: relative;
+    top: 15px; */
+    margin-top: 1% !important;
+    /* display: inline-block; */
+}
+#contact-us{
+    position: fixed !important;
+    margin-top: 15%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9999999;
+    opacity:1;
+    height: 50%;
+    text-align:center;
+    /* background-color: rgb(0,0,0) !important;
+    background-color: rgba(0,0,0,0.4) !important; */
+}
+#contact-us>div>div{
+    background-color: white;
+    padding: 10px;
+}
+#contact-us>div>div>p{
+    position: relative;
+    text-align: right;
+    font-weight: bolder;
+    font-size: 20px;
+    cursor: pointer;
+}
+#shift-down>li{
+    margin-left: 15px !important;
+    cursor: pointer;
+}
+#header>ul{
+    /* list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden !important;
+     display: inline-block !important; 
+    width: 100%; */
+}
+
+#header>ul>li{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden !important;
+     display: inline-block !important; 
+     padding:20px;
+     cursor: pointer;
+}
+.to-left{
+    float: left !important;
+}
+.to-right {
+    float: right !important;
+}
+.center-it{
+    text-align: center !important;
+    display: block !important;
+}
+/* #header>a{
+    display: inline;
+} */
+/* #jumbo{
+    height: 500px;
+    width: 100%;
+    background:linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/laptop.jpg');
+}
+#jumbo>h1,h3{
+    margin-top: -1%;
+    color: white !important;
+} */
+.drop-down{
+    margin-top: 8%;
+    font-size: 30px;
+    font-family: 'Raleway', sans-serif;
+}
+#move-down{
+    padding-top: 7%;
+    font-size: 45px;
+    font-family: 'Teko', sans-serif;
+}
+.section-it{
+    margin-top: 5% !important;
+}
+.offer-row{
+    display: inline-block !important;
+    /* width: 100% !important; */
+}
+.offer-row>div{
+    /* width: 33%; */
+    display: inline-block;
+}
+.offer-row>div>span,p{
+    /* display: inline;
+    margin-left: 5%; */
+}
+.offer-row>div>div>span{
+    font-size: 100px !important;
+    /* margin-left: 10%; */
+}
+.offer-row>div>div>p{
+    font-size: 25px;
+    /* margin-top: 10% !important; */
+}
+.lower{
+    top: 40px;
+    /* left: 20px; */
+}
+.offer-row>div>img{
+    width: 65%;
+    margin-left: 10%;
+    border-radius: 50%;
+}
+#icon{
+    position: relative;
+    top: 20px;
+}
+#content {
+    padding-bottom:100px; /* Height of the footer element */
+}
+.img-p{
+    margin-left: -10% !important;
+}
+hr{
+    width: 100px ;
+    border-bottom-width: 2px !important;
+    border-bottom-color: black !important;
+    margin-bottom: 5%;
+    margin-top: -1%;
+}
+#footer {
+    background:#ededed;
+    width:100%;
+    height:60px;
+    position:absolute;
+    bottom:0;
+    left:0;
+}
+#footer>span{
+    display: inline-block;
+    font-size: 20px;
+    margin-top: 1%;
+}
+#footer>p{
+    display: inline-block;
+    font-size: 20px;
+    margin-top: 1%;
+}
