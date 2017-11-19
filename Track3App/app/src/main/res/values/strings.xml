@@ -3,4 +3,8 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_tag">New Tag</string>
     <string name="location_request_rationale">Track 3 requires access to your location</string>
+    <string name="service_not_available">Service not available</string>
+    <string name="invalid_lat_long_used">Invalid lat lng used</string>
+    <string name="no_address_found">No address found</string>
+    <string name="address_found">Address not found</string>
 </resources>
