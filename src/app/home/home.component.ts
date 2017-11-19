@@ -1,7 +1,8 @@
 import { Component, 
          OnInit, 
          ChangeDetectionStrategy, 
-         ViewChild } from '@angular/core';
+         ViewChild,
+         ChangeDetectorRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromHome from './reducer';
 import * as fromRoot from '../reducers'
@@ -22,9 +23,16 @@ export class HomeComponent implements OnInit {
   heatmap: google.maps.visualization.HeatmapLayer;
   map: google.maps.Map;
   points = [];
-  constructor(private store: Store<fromRoot.State>, private googleMapService: GoogleMapService) {
+  center: any;
+  autocomplete: google.maps.places.Autocomplete;
+  address: any = {};
+  constructor(private store: Store<fromRoot.State>, private googleMapService: GoogleMapService, private ref: ChangeDetectorRef) {
     this.showLoading$ = this.store.select(fromRoot.getShowLoading);
    }
+   
+  initialized(autocomplete: any) {
+    this.autocomplete = autocomplete;
+  }
    loadLocation() {
     // Get all comments
       this.googleMapService.loadLocation()
@@ -35,8 +43,8 @@ export class HomeComponent implements OnInit {
             console.log('here');
           }, //Bind to view
           err => {
-              // Log errors if any
-              console.log(err);
+            // Log errors if any
+            console.log(err);
         });
       }
   ngOnInit() {
@@ -69,5 +77,13 @@ export class HomeComponent implements OnInit {
     let randomLng = Math.random() * 0.0099 + 3.3514863;
     let latlng = new google.maps.LatLng(randomLat, randomLng);
     this.points.push(latlng);
+  }
+  placeChanged(place) {
+    this.center = place.geometry.location;
+    for (let i = 0; i < place.address_components.length; i++) {
+      let addressType = place.address_components[i].types[0];
+      this.address[addressType] = place.address_components[i].long_name;
+    }
+    this.ref.detectChanges();
   }
 }
