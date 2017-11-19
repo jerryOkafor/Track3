@@ -1,0 +1,62 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'colours';
+@import "~bootstrap/dist/css/bootstrap.css";
+
+
+html {
+  background: transparent;
+}
+
+body {
+  font-family: Lato, sans-serif;
+  color: $font-color;
+  background-color: #f2f2f2;
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+}
+
+*:focus {
+  outline: 0 !important;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  outline: 0;
+}
+
+a:hover,
+a:focus {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  color: inherit;
+}
+
+pre {
+  color: inherit;
+  background-color: #f8f8f8;
+  border-color: rgba(120, 130, 140, 0.13);
+}
+
+code {
+  background-color: rgba(120, 130, 140, 0.13);
+}
+
+blockquote {
+  border-color: rgba(120, 130, 140, 0.13);
+}
+
+small {
+  font-size: 90%;
+}
+
+sup {
+  position: relative;
+  top: -1em;
+  font-size: 75%;
+}
+
