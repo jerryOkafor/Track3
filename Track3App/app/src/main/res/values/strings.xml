@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Track3</string>
+    <string name="app_name">BojuBoju</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_tag">New Tag</string>
     <string name="location_request_rationale">Track 3 requires access to your location</string>
