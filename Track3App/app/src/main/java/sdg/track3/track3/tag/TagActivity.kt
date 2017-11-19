@@ -20,6 +20,8 @@ import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.location.places.Place
 import com.google.android.gms.location.places.ui.PlacePicker
+import com.google.android.gms.maps.model.LatLng
+import com.google.firebase.database.FirebaseDatabase
 import com.jakewharton.rxbinding2.widget.checkedChanges
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -28,6 +30,10 @@ import kotlinx.android.synthetic.main.content_tag.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 import sdg.track3.track3.R
+import sdg.track3.track3.model.TrackLatLng
+import sdg.track3.track3.model.TrackPlace
+import sdg.track3.track3.util.disAble
+import sdg.track3.track3.util.enable
 import sdg.track3.track3.util.toggle
 import timber.log.Timber
 import java.io.IOException
@@ -110,6 +116,46 @@ class TagActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
                 .skipInitialValue()
                 .subscribe { checked -> btnChoosePlace.toggle(!checked) }
         btnChoosePlace.setOnClickListener({ openPlacePicker() })
+
+        //tag
+        btnTag.setOnClickListener({ startTag() })
+
+    }
+
+    private fun startTag() {
+        btnTag.disAble()
+        val placeName = tvName.text.toString();
+        if (placeName.isEmpty()) {
+            Toast.makeText(this, "TrackPlace name can not be null", Toast.LENGTH_LONG).show()
+            return
+        }
+        var placeAddress = ""
+        var placeCord = TrackLatLng(0.0, 0.0)
+        if (selectedPlace != null) {
+            placeAddress = selectedPlace!!.address.toString()
+            placeCord = TrackLatLng.fromLatLng(selectedPlace!!.latLng)
+        } else if (!addressString.isNullOrEmpty()) {
+            placeAddress = addressString.orEmpty()
+            placeCord = TrackLatLng(lastLocation!!.latitude, lastLocation!!.longitude)
+        }
+
+        if (placeAddress.isEmpty()) {
+            Toast.makeText(this, "TrackPlace address can not be empty, Please select a place!", Toast.LENGTH_LONG).show()
+            return
+        }
+
+
+        val place = TrackPlace(placeName, placeAddress, placeCord)
+        FirebaseDatabase.getInstance().reference.child("people").push()
+                .setValue(place)
+                .addOnSuccessListener {
+                    btnTag.enable()
+                    Toast.makeText(this, "Place tagging successful", Toast.LENGTH_LONG).show()
+                }
+                .addOnFailureListener({
+                    btnTag.enable()
+                    Toast.makeText(this, "Error: :" + it.localizedMessage, Toast.LENGTH_LONG).show()
+                })
 
     }
 
@@ -210,7 +256,7 @@ class TagActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
             REQUEST_PLACE_PICKER -> {
                 if (resultCode == Activity.RESULT_OK) {
                     selectedPlace = PlacePicker.getPlace(this, data)
-                    Timber.d("Selected Place: %s", selectedPlace.toString())
+                    Timber.d("Selected TrackPlace: %s", selectedPlace.toString())
                 }
             }
             else -> super.onActivityResult(requestCode, resultCode, data)

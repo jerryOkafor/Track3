@@ -7,4 +7,9 @@
     <string name="invalid_lat_long_used">Invalid lat lng used</string>
     <string name="no_address_found">No address found</string>
     <string name="address_found">Address not found</string>
+    <string name="name">Name</string>
+    <string name="phone_number">Phone number</string>
+    <string name="use_my_current_location">Use my current Location</string>
+    <string name="choose_a_place">Choose a Place</string>
+    <string name="tag">Tag</string>
 </resources>
