@@ -11,7 +11,7 @@ export class GoogleMapService {
   constructor(private http: Http, private store: Store<fromRoot.State>) {}
   
     getLocation(query): Observable<any> {
-      return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + query)
+      return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + query + '&key=AIzaSyBtTf4dR4wm6bg_r5ImHT7rR9OYeY8grIQ')
         .map(res => res.json() || []);
     } 
     loadLocation() : Observable<any> {

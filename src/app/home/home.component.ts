@@ -68,18 +68,19 @@ export class HomeComponent implements OnInit {
   loadRandomPoints() {
     this.points = [];
 
-    for (let i = 0 ; i < 9; i++) {
+    for (let i = 0 ; i < 60; i++) {
       this.addPoint();
     }
   }
   addPoint() {
-    let randomLat = Math.random() * 0.0099 + 6.601838;
-    let randomLng = Math.random() * 0.0099 + 3.3514863;
+    let randomLat = Math.random() * 0.0999 + 6.601838;
+    let randomLng = Math.random() * 0.0999 + 3.3514863;
     let latlng = new google.maps.LatLng(randomLat, randomLng);
     this.points.push(latlng);
   }
   placeChanged(place) {
     this.center = place.geometry.location;
+    console.log(this.center);
     for (let i = 0; i < place.address_components.length; i++) {
       let addressType = place.address_components[i].types[0];
       this.address[addressType] = place.address_components[i].long_name;

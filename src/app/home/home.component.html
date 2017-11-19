@@ -3,7 +3,7 @@
   <div id="content">
     <input places-auto-complete
     (place_changed)="placeChanged($event)"
-    [types]="['address']" />
+    [types]="['geocode']" />
     <button (click)='toggleHeatmap()'>show heatmap</button>
     <button (click)='loadRandomPoints()'>Load Random Points</button>
     <ngui-map zoom="13" center="6.601838, 3.3514863">

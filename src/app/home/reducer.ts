@@ -7,7 +7,9 @@ export interface State {
 
 const initialState: State = {
   showLoading: false,
-  Location: {},
+  Location: {
+      
+  },
 };
 
 export function reducer(state = initialState, action: home.Actions): State {
