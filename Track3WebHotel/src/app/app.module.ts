@@ -9,6 +9,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { CheckInComponent } from './check-in/check-in.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularFireModule } from 'angularfire2';
+import { environment } from '../environments/environment';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 
 @NgModule({
@@ -22,7 +26,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
-        SharedModule
+        SharedModule,
+        AngularFireModule.initializeApp(environment.firebase, 'test-app'),
+        AngularFireAuthModule,
+        AngularFireDatabaseModule
     ],
     providers: [
         DataService,

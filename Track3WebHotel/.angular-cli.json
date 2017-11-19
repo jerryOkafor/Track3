@@ -19,8 +19,6 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "zd",
       "styles": [
-        "vendor/css/flaticon.css",
-        "vendor/css/zodio-icons.css",
         "scss/styles.scss"
       ],
       "scripts": [],
