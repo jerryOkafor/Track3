@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div id="wrapper" class=""> 
   <app-header></app-header>
   <div id="content">
@@ -12,3 +13,28 @@
   </div>
   <app-footer></app-footer>
 </div>
+=======
+<div id="wrapper" class="">
+    <app-header></app-header>
+
+    <div class="container">
+
+      <div class="input-field col m6">
+        <input places-auto-complete (place_changed)="placeChanged($event)" [types]="['geocode']" />
+      </div>
+
+        <!-- <button>show heatmap</button> -->
+
+        <ngui-map zoom="13" center="6.601838, 3.3514863" class="mapBody">
+            <heatmap-layer [data]="points"></heatmap-layer>
+        </ngui-map>
+
+        <hr />
+
+        <button (click)='toggleHeatmap()' class="waves-effect waves-light btn">Show HeatMap</button>
+        <button (click)='loadRandomPoints()' class="waves-effect waves-light btn">Load Random Points</button>
+    </div>
+
+    <app-footer></app-footer>
+</div>
+>>>>>>> ea393c73c027a9b9285ac9c49a079a350bd409eb
