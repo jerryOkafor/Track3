@@ -6,7 +6,7 @@
     [types]="['geocode']" />
     <button (click)='toggleHeatmap()'>show heatmap</button>
     <button (click)='loadRandomPoints()'>Load Random Points</button>
-    <ngui-map zoom="13" center="6.601838, 3.3514863">
+    <ngui-map zoom="13" [center]="center.lat||6.601838, center.lng||3.3514863">
       <heatmap-layer [data]="points"></heatmap-layer>
     </ngui-map>
   </div>

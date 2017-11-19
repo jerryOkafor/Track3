@@ -5,6 +5,7 @@ import { Component,
          ChangeDetectorRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromHome from './reducer';
+import * as fromAction from './actions';
 import * as fromRoot from '../reducers'
 import { Observable } from 'rxjs/Observable';
 import {GoogleMapService} from '../google-map.service'
@@ -39,6 +40,7 @@ export class HomeComponent implements OnInit {
         .subscribe(
           location => {
             this.LocationCode$ = location;
+            this.center = location;
             console.log(this.LocationCode$)
             console.log('here');
           }, //Bind to view
@@ -80,7 +82,11 @@ export class HomeComponent implements OnInit {
   }
   placeChanged(place) {
     this.center = place.geometry.location;
-    console.log(this.center);
+    console.log(this.center.lat());
+    let location = {
+      lat: this.center.lat(),
+      lng: this.center.lng(),
+    }
     for (let i = 0; i < place.address_components.length; i++) {
       let addressType = place.address_components[i].types[0];
       this.address[addressType] = place.address_components[i].long_name;
