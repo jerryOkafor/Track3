@@ -60,17 +60,25 @@ export class CheckInComponent implements OnInit {
 
             this.dataService.post('https://sdg-track-3.firebaseio.com/people.json', body).subscribe(
                 (data) => {
-                    setTimeout(() => {
-                        this.checkInCompleted = true;
-                    }, 5000)
+                    this.checkInCompleted = true;
+                    this.resetForm();
                 },
                 error => {
+                    this.isProcessing = false;
                     console.log(error);
                 })
         }
 
     }
 
+
+    resetForm() {
+        setTimeout(() => {
+            this.checkInForm.reset();
+            this.isProcessing = false;
+            this.isSubmitted = false;
+        }, 5000)
+    }
 
     /**
      * Generate a random
@@ -86,9 +94,7 @@ export class CheckInComponent implements OnInit {
         }
 
 
-        let singlePoint = generateRandomPoint(options.centerPosition, options.radius);
-
-        return singlePoint;
+        return generateRandomPoint(options.centerPosition, options.radius);
 
     }
 
