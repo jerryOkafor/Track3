@@ -1,6 +1,6 @@
-import { Component, 
-         OnInit, 
-         ChangeDetectionStrategy, 
+import { Component,
+         OnInit,
+         ChangeDetectionStrategy,
          ViewChild,
          ChangeDetectorRef } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
   constructor(private store: Store<fromRoot.State>, private googleMapService: GoogleMapService, private ref: ChangeDetectorRef) {
     this.showLoading$ = this.store.select(fromRoot.getShowLoading);
    }
-   
+
   initialized(autocomplete: any) {
     this.autocomplete = autocomplete;
   }
@@ -86,5 +86,22 @@ export class HomeComponent implements OnInit {
       this.address[addressType] = place.address_components[i].long_name;
     }
     this.ref.detectChanges();
+  }
+
+  loadTrafficPoints() {
+    this.points = [];
+    this.googleMapService.loadFromFirebase()
+      .subscribe(points => {
+        console.log(points);
+        for (const propertyID in points) {
+          if (points.hasOwnProperty(propertyID)) {
+              const lat = points[propertyID].lat;
+              const lng = points[propertyID].lng;
+
+              const latlng = new google.maps.LatLng(lat, lng);
+              this.points.push(latlng);
+          }
+      }
+      });
   }
 }
