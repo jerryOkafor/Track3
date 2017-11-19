@@ -24,9 +24,11 @@ export class HomeComponent implements OnInit {
   heatmap: google.maps.visualization.HeatmapLayer;
   map: google.maps.Map;
   points = [];
-  center: any;
+  center: any = {lat:'3.655477', lng: '65557777'};
   autocomplete: google.maps.places.Autocomplete;
   address: any = {};
+  gCode = "6.601838, 3.3514863"
+
   constructor(private store: Store<fromRoot.State>, private googleMapService: GoogleMapService, private ref: ChangeDetectorRef) {
     this.showLoading$ = this.store.select(fromRoot.getShowLoading);
    }
@@ -82,11 +84,13 @@ export class HomeComponent implements OnInit {
   }
   placeChanged(place) {
     this.center = place.geometry.location;
-    console.log(this.center.lat());
-    let location = {
-      lat: this.center.lat(),
-      lng: this.center.lng(),
-    }
+    // console.log(this.center.lat());
+    // let location = {
+    //   lat: this.center.lat(),
+    //   lng: this.center.lng(),
+    // }
+    // console.log(location);
+    // this.gCode =  location.lat + ',' + location.lng;
     for (let i = 0; i < place.address_components.length; i++) {
       let addressType = place.address_components[i].types[0];
       this.address[addressType] = place.address_components[i].long_name;
