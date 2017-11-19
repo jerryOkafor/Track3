@@ -71,7 +71,9 @@ export class CheckInComponent implements OnInit {
 
     }
 
-
+    /**
+     * Reset Forms
+     */
     resetForm() {
         setTimeout(() => {
             this.checkInForm.reset();
