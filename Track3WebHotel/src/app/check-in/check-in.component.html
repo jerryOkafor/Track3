@@ -1,36 +1,24 @@
-<div class="check-in-wrapper col-md-5 center-block">
-    <div class="col-lg-10">
-        <form [formGroup]="checkInForm" (ngSubmit)="checkIn()">
+<div class="check-in-wrapper col-md-4 col-md-push-3 col-sm-6 center-block">
+    <div class="col-lg-12">
+        <form [formGroup]="checkInForm" (ngSubmit)="checkIn()" *ngIf="!isProcessing">
             <div class="row">
-                <div class="form-group col-md-12">
-                    <label>First name</label>
-                    <input type="text" class="form-control" name="firstname" placeholder="Enter First name">
+                <div class="form-group col-md-12"
+                     [ngClass]="{'has-error': checkInForm.get('fullName').hasError('required') && checkInForm.get('fullName').dirty || checkInForm.get('fullName').hasError('required') && isSubmitted}">
+                    <label>Full Name</label>
+                    <input type="text" class="form-control" formControlName="fullName" placeholder="Enter Full name">
                 </div>
-                <div class="form-group col-md-12">
-                    <label>Last name</label>
-                    <input type="text" class="form-control" name="lastname" placeholder="Enter last name">
-                </div>
-                <div class="form-group col-md-12">
+
+                <div class="form-group col-md-12"
+                     [ngClass]="{'has-error': checkInForm.get('email').hasError('required') && checkInForm.get('email').dirty || checkInForm.get('email').hasError('required') && isSubmitted}">
                     <label>Email Address</label>
-                    <input type="text" class="form-control" name="email" placeholder="Enter email address">
+                    <input type="text" class="form-control" formControlName="email" placeholder="Enter email address">
                 </div>
 
-                <div class="form-group col-md-12">
-                    <label>Location</label>
-                    <input type="text" class="form-control" name="Location" placeholder="This is the hotel location">
+                <div class="form-group col-md-12"
+                     [ngClass]="{'has-error': checkInForm.get('id').hasError('required') && checkInForm.get('id').dirty || checkInForm.get('id').hasError('required') && isSubmitted}">
+                    <label>ID Number</label>
+                    <input type="text" class="form-control" formControlName="id" placeholder="Enter User' Passport ID">
                 </div>
-
-                <div class="form-group col-md-12">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-success">Upload ID</button>
-                        <button type="button" class="btn btn-success">
-                            <span>...</span>
-                            <span class="sr-only">Toggle Upload ID</span>
-                        </button>
-                    </div>
-                </div>
-
-
             </div>
             <div class="row">
                 <div class="col-sm-6 col-md-12">
@@ -38,6 +26,27 @@
                 </div>
             </div>
         </form>
+
+        <div class="form-processing" *ngIf="isProcessing">
+            <div class='process process-xl' [ngClass]="{'process-success':checkInCompleted}">
+        <span class='process-icon-container'>
+        <span class='process-icon-horizontal'></span>
+        <span class='process-icon-vertical'></span>
+        </span>
+                <svg version='1.1'
+        xmlns='http://www.w3.org/2000/svg'
+        xml:space='preserve'>
+        <circle class='process-circle' cx='50%' cy='50%' r='45%'
+        fill-opacity='0.0' />
+        </svg>
+            </div>
+
+            <div class="text-lg-center text-xs-center" *ngIf="!checkInCompleted" style="margin-top:10px;"> Checking-in
+                Visitor ...
+            </div>
+
+        </div>
     </div>
+
 
 </div>
