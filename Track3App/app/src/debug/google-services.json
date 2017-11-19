@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "332921740974-3hnp2dpjtnnkskmogjk9kth6cqhkmkui.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sdg.track3.track3",
+            "certificate_hash": "319ea4adff8c5f7821524c77c646674dafbd3b0f"
+          }
+        },
+        {
           "client_id": "332921740974-9rqvmv4bscmc8un11fk9mtner8ovu96q.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
